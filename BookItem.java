@@ -2,7 +2,8 @@ public class BookItem{
     String date;
     int money;
     String CardType;
-    int BankAccountNumber;
+    String explanation;
+
 
 
     public String getDate() {
@@ -29,14 +30,14 @@ public class BookItem{
         this.CardType = CardType;
     }
 
-    public int getBankAccountNumber() {
-        return this.BankAccountNumber;
+    public String getExplanation() {
+        return this.explanation;
     }
 
-    public void setBankAccountNumber(int BankAccountNumber) {
-        this.BankAccountNumber = BankAccountNumber;
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
-
+    
 
     @Override
     public String toString() {
@@ -44,8 +45,9 @@ public class BookItem{
             " date='" + getDate() + "'" +
             ", money='" + getMoney() + "'" +
             ", CardType='" + getCardType() + "'" +
-            ", BankAccountNumber='" + getBankAccountNumber() + "'" +
+            ", explanation='" + getExplanation() + "'" +
             "}";
     }
+    
 
 }

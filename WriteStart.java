@@ -1,7 +1,9 @@
 
-
+import java.util.Scanner;
 
 public class WriteStart{
+
+    Scanner sc = new Scanner(System.in);
     ShowScript showScript = new ShowScript();
     setData setdata = new setData();
     public void start(){
@@ -12,7 +14,7 @@ public class WriteStart{
         int input_Scanner = sc.nextInt();
         switch(input_Scanner) {
         	case 0:
-        		showScript.Date();
+        		
         	    setdata.Dateset();
         	    //////////////////////////////
         	    showScript.Price();
@@ -21,17 +23,23 @@ public class WriteStart{
         	    showScript.CardType();
         	    setdata.setCardType();
         	    /////////////////////////////
-        	    showScript.BankAccountNumber();
-        	    setdata.setBankAccountNumber();
+        	    showScript.explantion();
+        	    setdata.setExplanation();
         	    //////////////////////////////
-        	    setdata.addItem();
-        	    
+				setdata.addItem();
+				ShowList();
+        	    break;
         	case 1:
         		
-        		for(int i=0;i<setdata.arrayList.size();i++) {
-        			System.out.println(setdata.arrayList.get(i));
-        		}      		
-        	
+        		ShowList();
+				break;
+			case 2:
+				
+				ShowList();
+				showScript.removeMessage();
+				int removePosition = sc.nextInt();
+				setdata.removeItem(removePosition);
+				break;
         	}
         	showScript.ContinueMessage();
         	int question = sc.nextInt();
@@ -40,7 +48,13 @@ public class WriteStart{
         	}
     	}
 
-    }
+	}
+	public void ShowList(){
+		showScript.EndMessage();
+		for(int i=0;i<setdata.arrayList.size();i++){
+			System.out.println(setdata.arrayList.get(i));
+		}
+	}
     
     
             

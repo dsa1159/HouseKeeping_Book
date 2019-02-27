@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.*;
 
 public class setData{
     
@@ -7,25 +8,37 @@ public class setData{
     ArrayList<BookItem> arrayList = new ArrayList<>();
     String date;
     String CardType;
-    int BankAccountNumber;
+    String explanation;
     int money;
+    Date nowDate = new Date();
+
     public void Dateset(){
-    	date = sc.next();
-    	if(date == "0") {
-    		date = "2019-00-00";	
-    	}     
-    	
+        date = nowDate.toString();
     }
     public void setMoney() {
-    	money = sc.nextInt();
-    	
+        while(true){
+            try{
+                money = sc.nextInt();
+                break;
+            }catch(InputMismatchException e){
+               
+                System.out.print("잘못 입력하셨습니다. 숫자만 입력해주세요. : ");
+                 sc = new Scanner(System.in);
+
+                
+            }
+        }
+    }
+    public void removeItem(int removePosition){
+        arrayList.remove(removePosition);
+        
     }
     public void setCardType() {
     	CardType = sc.next();
     	
     }
-    public void setBankAccountNumber() {
-    	BankAccountNumber = sc.nextInt();
+    public void setExplanation() {
+    	explanation = sc.next();
     	
     }
     public void addItem() {
@@ -33,7 +46,7 @@ public class setData{
     	bookItem.setDate(date);
     	bookItem.setMoney(money);
     	bookItem.setCardType(CardType);
-    	bookItem.setBankAccountNumber(BankAccountNumber);
+    	bookItem.setExplanation(explanation);
     	arrayList.add(bookItem);
     }
     public void showHouseKeepingBook(int positon) {
