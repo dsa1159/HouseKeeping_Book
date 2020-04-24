@@ -4,34 +4,34 @@ import java.util.ArrayList;
 public class ShowScript{
 	
 	public void ContinueMessage() {
-		System.out.print("í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ? : 0 = ê³„ì† ,1 = ì¢…ë£Œ ,2 = ë°ì´í„° ì‚­ì œ");
+		System.out.print("ÇÁ·Î±×·¥À» Á¾·á ÇÏ½Ã°Ú½À´Ï±î? : 0 = °è¼Ó ,1 = Á¾·á ,2 = µ¥ÀÌÅÍ »èÁ¦");
 	}
     public void StartMessage() {
-    	System.out.print("ê°€ê³„ë¶€ë¥¼ ì‘ì„±í• ë ¤ë©´ 0, ê°€ê³„ë¶€ ë¦¬ìŠ¤íŠ¸ë¥¼ í™•ì¸ í• ë ¤ë©´ 1 : ");
+    	System.out.print("°¡°èºÎ¸¦ ÀÛ¼ºÇÒ·Á¸é 0, °¡°èºÎ ¸®½ºÆ®¸¦ È®ÀÎ ÇÒ·Á¸é 1 : ");
     }
     public void Date(){
-        System.out.print("ì¹´ë“œ ì‚¬ìš©ì¼ìë¥¼ ì‘ì„±í•´ì£¼ì„¸ìš”. \nìˆ«ì 0 ì„ ì‘ì„±í•˜ì‹œë©´ í˜„ì¬ ì‹œê°ìœ¼ë¡œ ì‘ì„± ë©ë‹ˆë‹¤. :");
+        System.out.print("Ä«µå »ç¿ëÀÏÀÚ¸¦ ÀÛ¼ºÇØÁÖ¼¼¿ä. \\n¼ıÀÚ 0 À» ÀÛ¼ºÇÏ½Ã¸é ÇöÀç ½Ã°¢À¸·Î ÀÛ¼º µË´Ï´Ù. :");
     }
     public void Price(){
-        System.out.print("ì‚¬ìš© ê¸ˆì•¡ì„ ì‘ì„± í•´ì£¼ì„¸ìš”. \n ìˆ«ìë§Œ ì…ë ¥í•˜ì‹œì˜¤. : ");
+        System.out.print("»ç¿ë ±İ¾×À» ÀÛ¼º ÇØÁÖ¼¼¿ä. \\n ¼ıÀÚ¸¸ ÀÔ·ÂÇÏ½Ã¿À. : ");
     }
     public void CardType(){
-        System.out.print("ì¹´ë“œì¢…ë¥˜ë¥¼ ì‘ì„±í•´ì£¼ì„¸ìš”. ex)êµ­ë¯¼, êµ­ë¯¼(ì²´í¬), êµ­ë¯¼(ì‹ ìš©) : ");
+        System.out.print("Ä«µåÁ¾·ù¸¦ ÀÛ¼ºÇØÁÖ¼¼¿ä. ex)±¹¹Î, ±¹¹Î(Ã¼Å©), ±¹¹Î(½Å¿ë) : ");
     }
     public void explantion(){
-        System.out.print("ì‚¬ìš© ëª©ì ì„ ì‘ì„± í•´ì£¼ì„¸ìš”. :");
+        System.out.print("»ç¿ë ¸ñÀûÀ» ÀÛ¼º ÇØÁÖ¼¼¿ä. :");
     }
     public void BankAccountNumber(){
-        System.out.print("ê³„ì¢Œë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì‹œì˜¤. : ");
+        System.out.print("°èÁÂ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ½Ã¿À. : ");
     }
     public void End(){
-        System.out.print("ë‹¤ë¥¸ ë‚´ìš©ì„ ì‘ì„± í•˜ì‹œê² ìŠµë‹ˆê¹Œ? \n ë‚´ìš©ì„ ë” ì‘ì„± í•˜ì‹¤ë ¤ë©´ ìˆ«ì 1, ì•„ë‹ˆë©´ 0");
+        System.out.print("´Ù¸¥ ³»¿ëÀ» ÀÛ¼º ÇÏ½Ã°Ú½À´Ï±î? \\n ³»¿ëÀ» ´õ ÀÛ¼º ÇÏ½Ç·Á¸é ¼ıÀÚ 1, ¾Æ´Ï¸é 0");
     }
     public void EndMessage(){
-        System.out.println("***********ê°€ê³„ë¶€***********");
+        System.out.println("***********°¡°èºÎ***********");
     }
     public void removeMessage(){
-        System.out.println("ì‚­ì œí•  ë°ì´í„°ì˜ ìœ„ì¹˜ë¥¼ ì§€ì •í•´ì£¼ì„¸ìš”. 0ë²ˆë¶€í„° ì‹œì‘ : ");
+        System.out.println("»èÁ¦ÇÒ µ¥ÀÌÅÍÀÇ À§Ä¡¸¦ ÁöÁ¤ÇØÁÖ¼¼¿ä. 0¹øºÎÅÍ ½ÃÀÛ : ");
     }
     
 
