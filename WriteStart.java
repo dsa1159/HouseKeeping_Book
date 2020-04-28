@@ -22,15 +22,15 @@ public class WriteStart {
 
 			sv.setname(br.readLine());
 
-			System.out.println("가격을 입력하세요");
+			System.out.println("사용한 금액 을 입력하세요");
 
 			sv.setPrice(br.readLine());
 			
-			System.out.println("사용날짜를 입력하세요");
+			System.out.println("사용날짜 를 입력하세요");
 
 			sv.setUsedate(br.readLine());
 			
-			System.out.println("비고를 입력하세요");
+			System.out.println("사용처 를 입력하세요");
 
 			sv.setNotes(br.readLine());
 
@@ -70,7 +70,7 @@ public class WriteStart {
 
 			setData sv = it.next();
 
-			str = String.format("%s %s %s %s %s", sv.getUserid(), sv.getname(), sv.getPrice(), sv.getUsedate(), sv.getNotes());
+			str = String.format("%s %s %s %s %s", sv.getSequence(), sv.getname(), sv.getPrice(), sv.getUsedate(), sv.getNotes());
 
 			System.out.println(str);
 
@@ -88,11 +88,11 @@ public class WriteStart {
 
 		try {
 
-			System.out.println("수정할 이름을 입력하세요");
+			System.out.println("수정할 순서를 입력하세요");
 
-			String name = br.readLine();
+			String sequence = br.readLine();
 
-			System.out.println("수정할 가격을 입력하세요");
+			System.out.println("수정할 금액을 입력하세요");
 
 			String price = br.readLine();
 			
@@ -100,7 +100,7 @@ public class WriteStart {
 
 			String notes = br.readLine();*/
 
-			int result = callQuery.updatedata(name, price);
+			int result = callQuery.updatedata(sequence, price);
 
 			if (result != 0)
 
@@ -128,11 +128,11 @@ public class WriteStart {
 
 		try {
 
-			System.out.println("삭제할 이름을입력하세요");
+			System.out.println("삭제할 순서를 입력하세요");
 
-			String name = br.readLine();
+			String sequence = br.readLine();
 
-			int result = callQuery.deletedata(name);
+			int result = callQuery.deletedata(sequence);
 
 			if (result == 0)
 

@@ -2,13 +2,13 @@ public class setData {
 
 	String sequence, name, price, usedate, notes;
 
-	public String getUserid() {
+	public String getSequence() {
 
 		return sequence;
 
 	}
 
-	public void setUserid(String sequence) {
+	public void setSequence(String sequence) {
 
 		this.sequence = sequence;
 

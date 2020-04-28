@@ -28,7 +28,7 @@ public class QueryClass {
 
 		sb.append("INSERT INTO TEST(SEQUENCE, NAME, PRICE, USEDATE,NOTES)");
 
-		sb.append(" VALUES (SEQ_NUMBER.NEXTVAL, "); // SEQ_NUMBER라는 시퀀스의 다음번호를 입력문이다.
+		sb.append(" VALUES (T_NUMBER.NEXTVAL, "); // SEQ_NUMBER라는 시퀀스의 다음번호를 입력문이다.
 		//sb.append(" VALUES (" + sv.getUserid() + "',");
 		sb.append("'" + sv.getname() + "',");
 		sb.append("'" + sv.getPrice() + "',");
@@ -79,7 +79,7 @@ public class QueryClass {
 
 				setData sv = new setData(); // 주의 여기서 객체생성
 
-				sv.setUserid(rs.getString("SEQUENCE"));
+				sv.setSequence(rs.getString("SEQUENCE"));
 
 				sv.setname(rs.getString("NAME"));
 
@@ -109,7 +109,7 @@ public class QueryClass {
 
 	// 쿼리문에 수정 메소드
 
-	public int updatedata(String name, String newcontent) {
+	public int updatedata(String sequence, String newcontent) {
 
 		int result = 0;
 
@@ -119,7 +119,7 @@ public class QueryClass {
 
 		sql = " UPDATE TEST SET PRICE = '" + newcontent + "'";
 
-		sql += " WHERE NAME = '" + name + "'";
+		sql += " WHERE SEQUENCE = '" + sequence + "'";
 
 		try {
 
@@ -151,7 +151,7 @@ public class QueryClass {
 
 		sql = "DELETE FROM TEST";
 
-		sql += " WHERE NAME = '" + string + "'";
+		sql += " WHERE SEQUENCE = '" + string + "'";
 
 		try {
 
