@@ -117,7 +117,7 @@ public class QueryClass {
 
 		String sql;
 
-		sql = " UPDATE TEST SET CONTENT = '" + newcontent + "'";
+		sql = " UPDATE TEST SET PRICE = '" + newcontent + "'";
 
 		sql += " WHERE NAME = '" + name + "'";
 
