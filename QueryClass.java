@@ -18,7 +18,7 @@ public class QueryClass {
 
 	// 쿼리문에 입력 메소드
 
-	public int insertdata(SaveClass sv) {
+	public int insertdata(setData sv) {
 
 		int result = 0;
 
@@ -26,7 +26,7 @@ public class QueryClass {
 
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("INSERT INTO TEST(USERID, NAME, PRICE, USEDATE,NOTES)");
+		sb.append("INSERT INTO TEST(SEQUENCE, NAME, PRICE, USEDATE,NOTES)");
 
 		sb.append(" VALUES (SEQ_NUMBER.NEXTVAL, "); // SEQ_NUMBER라는 시퀀스의 다음번호를 입력문이다.
 		//sb.append(" VALUES (" + sv.getUserid() + "',");
@@ -55,9 +55,9 @@ public class QueryClass {
 
 	// 쿼리문에 출력 메소드
 
-	public List<SaveClass> listdata() {
+	public List<setData> listdata() {
 
-		List<SaveClass> lists = new ArrayList<SaveClass>();
+		List<setData> lists = new ArrayList<setData>();
 
 		Statement stmt = null;
 
@@ -65,7 +65,7 @@ public class QueryClass {
 
 		String sql;
 
-		sql = "SELECT USERID, NAME, PRICE, USEDATE, NOTES";
+		sql = "SELECT SEQUENCE, NAME, PRICE, USEDATE, NOTES";
 
 		sql += " FROM TEST";
 
@@ -77,9 +77,9 @@ public class QueryClass {
 
 			while (rs.next()) {
 
-				SaveClass sv = new SaveClass(); // 주의 여기서 객체생성
+				setData sv = new setData(); // 주의 여기서 객체생성
 
-				sv.setUserid(rs.getString("USERID"));
+				sv.setUserid(rs.getString("SEQUENCE"));
 
 				sv.setname(rs.getString("NAME"));
 
