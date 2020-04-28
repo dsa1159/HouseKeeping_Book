@@ -1,61 +1,151 @@
+import java.io.BufferedReader;
 
-import java.util.Scanner;
+import java.io.InputStreamReader;
 
-public class WriteStart{
+import java.util.Iterator;
 
-    Scanner sc = new Scanner(System.in);
-    ShowScript showScript = new ShowScript();
-    setData setdata = new setData();
-    public void start(){
-    	
-    	boolean loop = true;
-    	while(loop) {
-    	showScript.StartMessage();
-        int input_Scanner = sc.nextInt();
-        switch(input_Scanner) {
-        	case 0:
-        		
-        	    setdata.Dateset();
-        	    //////////////////////////////
-        	    showScript.Price();
-        	    setdata.setMoney();
-        	    /////////////////////////////
-        	    showScript.CardType();
-        	    setdata.setCardType();
-        	    /////////////////////////////
-        	    showScript.explantion();
-        	    setdata.setExplanation();
-        	    //////////////////////////////
-				setdata.addItem();
-				ShowList();
-        	    break;
-        	case 1:
-        		
-        		ShowList();
-				break;
-			case 2:
-				
-				ShowList();
-				showScript.removeMessage();
-				int removePosition = sc.nextInt();
-				setdata.removeItem(removePosition);
-				break;
-        	}
-        	showScript.ContinueMessage();
-        	int question = sc.nextInt();
-        	if(question == 1) {
-        		loop = false;
-        	}
-    	}
+import java.util.List;
 
-	}
-	public void ShowList(){
-		showScript.EndMessage();
-		for(int i=0;i<setdata.arrayList.size();i++){
-			System.out.println(setdata.arrayList.get(i));
+public class WriteStart {
+
+// insert 메소드
+
+	public void insert() {
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		setData sv = new setData();
+
+		try {
+
+			System.out.println("이름을 입력하세요");
+
+			sv.setname(br.readLine());
+
+			System.out.println("가격을 입력하세요");
+
+			sv.setPrice(br.readLine());
+			
+			System.out.println("사용날짜를 입력하세요");
+
+			sv.setUsedate(br.readLine());
+			
+			System.out.println("비고를 입력하세요");
+
+			sv.setNotes(br.readLine());
+
+			QueryClass callQuery = new QueryClass(DBconn.getConnection());
+
+			int result = callQuery.insertdata(sv);
+
+			if (result != 0)
+
+				System.out.println("성공적으로 입력되었습니다.\n");
+
+			else
+
+				System.out.println("입력에 실패하였습니다.\n");
+
+		} catch (Exception e) {
+
+			System.out.println(e.toString());
+
 		}
+
 	}
-    
-    
-            
+
+// select 메소드
+
+	public void select() {
+
+		QueryClass callQuery = new QueryClass(DBconn.getConnection());
+
+		List<setData> lists = callQuery.listdata();
+
+		Iterator<setData> it = lists.iterator();
+
+		String str;
+
+		while (it.hasNext()) {
+
+			setData sv = it.next();
+
+			str = String.format("%s %s %s %s %s", sv.getUserid(), sv.getname(), sv.getPrice(), sv.getUsedate(), sv.getNotes());
+
+			System.out.println(str);
+
+		}
+
+	}
+
+// update 메소드
+
+	public void update() {
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		QueryClass callQuery = new QueryClass(DBconn.getConnection());
+
+		try {
+
+			System.out.println("수정할 이름을 입력하세요");
+
+			String name = br.readLine();
+
+			System.out.println("수정할 가격을 입력하세요");
+
+			String price = br.readLine();
+			
+			/*System.out.println("수정할 비고를 입력하세요");
+
+			String notes = br.readLine();*/
+
+			int result = callQuery.updatedata(name, price);
+
+			if (result != 0)
+
+				System.out.println("성공적으로 수정되었습니다.\n");
+
+			else
+
+				System.out.println("수정에 실패하였습니다.\n");
+
+		} catch (Exception e) {
+
+			System.out.println(e.toString());
+
+		}
+
+	}
+
+// delete 메소드
+
+	public void delete() {
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		QueryClass callQuery = new QueryClass(DBconn.getConnection());
+
+		try {
+
+			System.out.println("삭제할 이름을입력하세요");
+
+			String name = br.readLine();
+
+			int result = callQuery.deletedata(name);
+
+			if (result == 0)
+
+				System.out.println("등록된 자료가 없습니다.\n");
+
+			else
+
+				System.out.println("삭제가 성공 하였습니다.\n");
+
+		} catch (Exception e) {
+
+		}
+
+	}
+
 }

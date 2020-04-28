@@ -1,56 +1,64 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.*;
+public class setData {
 
-public class setData{
-    
-    Scanner sc = new Scanner(System.in);
-    ArrayList<BookItem> arrayList = new ArrayList<>();
-    String date;
-    String CardType;
-    String explanation;
-    int money;
-    Date nowDate = new Date();
+	String sequence, name, price, usedate, notes;
 
-    public void Dateset(){
-        date = nowDate.toString();
-    }
-    public void setMoney() {
-        while(true){
-            try{
-                money = sc.nextInt();
-                break;
-            }catch(InputMismatchException e){
-               
-                System.out.print("잘못 입력하셨습니다. 숫자만 입력해주세요. : ");
-                 sc = new Scanner(System.in);
+	public String getUserid() {
 
-                
-            }
-        }
-    }
-    public void removeItem(int removePosition){
-        arrayList.remove(removePosition);
-        
-    }
-    public void setCardType() {
-    	CardType = sc.next();
-    	
-    }
-    public void setExplanation() {
-    	explanation = sc.next();
-    	
-    }
-    public void addItem() {
-    	BookItem bookItem = new BookItem();
-    	bookItem.setDate(date);
-    	bookItem.setMoney(money);
-    	bookItem.setCardType(CardType);
-    	bookItem.setExplanation(explanation);
-    	arrayList.add(bookItem);
-    }
-    public void showHouseKeepingBook(int positon) {
-    	arrayList.get(positon);
-    }
-    
+		return sequence;
+
+	}
+
+	public void setUserid(String sequence) {
+
+		this.sequence = sequence;
+
+	}
+
+	public String getname() {
+
+		return name;
+
+	}
+
+	public void setname(String name) {
+
+		this.name = name;
+
+	}
+
+	public String getPrice() {
+
+		return price;
+
+	}
+
+	public void setPrice(String price) {
+
+		this.price = price;
+
+	}
+	public String getUsedate() {
+
+		return usedate;
+
+	}
+
+	public void setUsedate(String usedate) {
+
+		this.usedate = usedate;
+	}
+	
+	public String getNotes() {
+
+		return notes;
+
+	}
+
+	public void setNotes(String notes) {
+
+		this.notes = notes;
+	}
+
+		
+
 }
