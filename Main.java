@@ -10,10 +10,8 @@ public class Main {
 
 		WriteStart CallLogic = new WriteStart();
 
-		while (true) {
-
-			try {
-				
+		while (true) {		
+			
 				System.out.println("******************************우리 집 가계부***********************************");
 				System.out.println("1.가계부 작성(insert) 2.가계부확인(select) 3.수정(update) 4.삭제(update) 5.종료(exit)");
 				System.out.println("**************************************************************************");
@@ -33,16 +31,10 @@ public class Main {
 				else if (option == 4)
 					CallLogic.delete();
 				else {
+					System.out.println("프로그램 종료");
 					sc.close();
 					break;
-				}
-
-			} catch (Exception e) {
-
-				System.out.println("1부터 4의 숫자중 1개를 선택하십시오.");
-
-			}
-
+				}			
 		}
 
 	}
