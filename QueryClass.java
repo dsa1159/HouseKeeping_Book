@@ -1,174 +1,141 @@
 import java.sql.Connection;
-
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
 import java.sql.Statement;
-
 import java.util.ArrayList;
-
 import java.util.List;
 
 public class QueryClass {
 
 	private Connection conn;
+	ResultSet rs = null;
+	Statement st = null; // 그냥 가져오는거
+	// PreparedStatement는 쿼리문에 ?를 사용해서 추가로 ?에 변수를 할당해 줄수 있도록 하는 객체
+	PreparedStatement ps = null; // ?넣어서 집어넣는거
 
 	public QueryClass(Connection conn) {
 		this.conn = conn;
 	}
+	
+	public void dbClose() {
+		try {
+			if (rs != null)
+				rs.close();
+			if (st != null)
+				st.close();
+			if (ps != null)
+				ps.close();
+		} catch (Exception e) {
+			System.out.println(e + "=> dbClose fail");
+		}
+	}
+
 
 	// 쿼리문에 입력 메소드
-
-	public int insertdata(setData sv) {
-
-		int result = 0;
-
-		Statement stmt = null;
-
-		StringBuffer sb = new StringBuffer();
-
-		sb.append("INSERT INTO TEST(SEQUENCE, NAME, PRICE, USEDATE,NOTES)");
-
-		sb.append(" VALUES (T_NUMBER.NEXTVAL, "); // SEQ_NUMBER라는 시퀀스의 다음번호를 입력문이다.
-		//sb.append(" VALUES (" + sv.getUserid() + "',");
-		sb.append("'" + sv.getname() + "',");
-		sb.append("'" + sv.getPrice() + "',");
-		sb.append("'" + sv.getUsedate() + "',");
-		sb.append("'" + sv.getNotes() + "')");
-
-		try {
-
-			stmt = conn.createStatement(); // stmt 객체를 제 설정후 이를 result 값을 입력받아 실행
-
-			result = stmt.executeUpdate(sb.toString());
-
-			stmt.close();
-
-		} catch (Exception e) {
-
-			System.out.println(e.toString());
-
-		}
-
-		return result;
-
-	}
-
-	// 쿼리문에 출력 메소드
-
-	public List<setData> listdata() {
-
-		List<setData> lists = new ArrayList<setData>();
-
-		Statement stmt = null;
-
-		ResultSet rs = null;
-
-		String sql;
-
-		sql = "SELECT SEQUENCE, NAME, PRICE, USEDATE, NOTES";
-
-		sql += " FROM TEST";
-
-		try {
-
-			stmt = conn.createStatement();
-
-			rs = stmt.executeQuery(sql); // 결과를 모두 갖고 있는 객체 rs
-
-			while (rs.next()) {
-
-				setData sv = new setData(); // 주의 여기서 객체생성
-
-				sv.setSequence(rs.getString("SEQUENCE"));
-
-				sv.setname(rs.getString("NAME"));
-
-				sv.setPrice(rs.getString("PRICE"));
+	// Create
+		public void insertData(setData data) {
+			try {
+				String sql = "INSERT INTO TEST(name, price, usedate, notes) values(?, ?, ?, ?)";
+				// PrparedStatment객체 생성, 인자로 sql문이 주어짐
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, data.name);
+				ps.setInt(2, data.price);
+				ps.setInt(3, data.usedate);
+				ps.setString(4, data.notes);
 				
-				sv.setUsedate(rs.getString("USEDATE"));
-				
-				sv.setNotes(rs.getString("NOTES"));
-
-				lists.add(sv);
-
+				// executeUpdate : insert, delete, update와 같이 값을 받아오지 않는 쿼리문 실행
+				ps.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				dbClose();
 			}
-
-			rs.close();
-
-			stmt.close();
-
-		} catch (Exception e) {
-
-			System.out.println(e.toString());
-
 		}
 
-		return lists;
+		// Read
+		public ArrayList<setData> readData() {
+			ArrayList<setData> arr = new ArrayList<setData>();
+			System.out.println(arr);
+			try {
+				// 쿼리문을 db에 넘김, 온전한 문자열 대입
+				st = conn.createStatement();
 
-	}
+				String sql = "SELECT * FROM TEST ORDER BY usedate ASC";
+				//rs:ResultSet은 실행한 쿼리문의 결과 값을 받아들이다.
+				rs = st.executeQuery(sql);
 
-	// 쿼리문에 수정 메소드
+				// 받은 결과값을 출력
+				while (rs.next()) {
+					arr.add(new setData(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getString(4)));
+				}
 
-	public int updatedata(String sequence, String newcontent) {
-
-		int result = 0;
-
-		Statement stmt = null;
-
-		String sql;
-
-		sql = " UPDATE TEST SET PRICE = '" + newcontent + "'";
-
-		sql += " WHERE SEQUENCE = '" + sequence + "'";
-
-		try {
-
-			stmt = conn.createStatement();
-
-			result = stmt.executeUpdate(sql);
-
-			stmt.close();
-
-		} catch (Exception e) {
-
-			System.out.println(e.toString());
-
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				dbClose();
+			}
+			return arr;
 		}
 
-		return result;
+		// Update
+		public void updateData(String name, int price) {
+			try {
+				String sql = "UPDATE TEST SET PRICE=? WHERE NAME=?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, price);
+				ps.setString(2, name);
+				ps.executeUpdate();
 
-	}
-
-	// 쿼리문에 삭제 메소드
-
-	public int deletedata(String string) {
-
-		int result = 0;
-
-		Statement stmt = null;
-
-		String sql;
-
-		sql = "DELETE FROM TEST";
-
-		sql += " WHERE SEQUENCE = '" + string + "'";
-
-		try {
-
-			stmt = conn.createStatement();
-
-			result = stmt.executeUpdate(sql);
-
-			stmt.close();
-
-		} catch (Exception e) {
-
-			System.out.println(e.toString());
-
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				dbClose();
+			}
 		}
 
-		return result;
+		// Delete
+		public void deleteData(String name) {
+			try {
 
+				String sql = "DELETE FROM TEST WHERE NAME=?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, name);
+				ps.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				dbClose();
+			}
+		}
+		
+		public ArrayList<setData> serchData(String name, String usedate) {
+			ArrayList<setData> arr = new ArrayList<setData>();
+			System.out.println(arr);
+			try {
+				// 쿼리문을 db에 넘김, 온전한 문자열 대입
+
+				String sql = "SELECT * FROM TEST WHERE NAME=? OR USEDATE=? ORDER BY usedate ASC";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, name);
+				ps.setString(2, usedate);
+				ps.executeUpdate();
+				
+				//rs:ResultSet은 실행한 쿼리문의 결과 값을 받아들이다.
+				rs = ps.executeQuery(sql);
+				
+				// 받은 결과값을 출력
+				while (rs.next()) {
+					arr.add(new setData(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getString(4)));
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				dbClose();
+			}
+			return arr;
+		}
+		
 	}
-
-}

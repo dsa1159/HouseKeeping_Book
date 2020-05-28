@@ -1,6 +1,16 @@
 public class setData {
 
-	String sequence, name, price, usedate, notes;
+	String sequence, name, notes;
+	int price, usedate;
+
+	public setData(String name, int price, int usedate, String notes) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+		this.price = price;
+		this.usedate = usedate;
+		this.notes = notes;
+		
+	}
 
 	public String getSequence() {
 
@@ -26,24 +36,24 @@ public class setData {
 
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 
 		return price;
 
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 
 		this.price = price;
 
 	}
-	public String getUsedate() {
+	public int getUsedate() {
 
 		return usedate;
 
 	}
 
-	public void setUsedate(String usedate) {
+	public void setUsedate(int usedate) {
 
 		this.usedate = usedate;
 	}
