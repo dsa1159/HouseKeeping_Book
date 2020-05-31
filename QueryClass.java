@@ -36,12 +36,12 @@ public class QueryClass {
 	// Create
 		public void insertData(setData data) {
 			try {
-				String sql = "INSERT INTO TEST(name, price, usedate, notes) values(?, ?, ?, ?)";
+				String sql = "INSERT INTO TEST(usedate, price, name, notes, userid) values(?, ?, ?, ?, user_id.NEXTVAL)";
 				// PrparedStatment객체 생성, 인자로 sql문이 주어짐
 				ps = conn.prepareStatement(sql);
-				ps.setString(1, data.name);
+				ps.setInt(1, data.usedate);				
 				ps.setInt(2, data.price);
-				ps.setInt(3, data.usedate);
+				ps.setString(3, data.name);
 				ps.setString(4, data.notes);
 				
 				// executeUpdate : insert, delete, update와 같이 값을 받아오지 않는 쿼리문 실행
@@ -67,7 +67,7 @@ public class QueryClass {
 
 				// 받은 결과값을 출력
 				while (rs.next()) {
-					arr.add(new setData(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getString(4)));
+					arr.add(new setData(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5)));
 				}
 
 			} catch (SQLException e) {
@@ -79,12 +79,12 @@ public class QueryClass {
 		}
 
 		// Update
-		public void updateData(String name, int price) {
+		public void updateData(String sequence, int price) {
 			try {
-				String sql = "UPDATE TEST SET PRICE=? WHERE NAME=?";
+				String sql = "UPDATE TEST SET PRICE=? WHERE USERID=?";
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1, price);
-				ps.setString(2, name);
+				ps.setString(2, sequence);
 				ps.executeUpdate();
 
 			} catch (SQLException e) {
@@ -95,12 +95,12 @@ public class QueryClass {
 		}
 
 		// Delete
-		public void deleteData(String name) {
+		public void deleteData(String sequence) {
 			try {
 
-				String sql = "DELETE FROM TEST WHERE NAME=?";
+				String sql = "DELETE FROM TEST WHERE USERID=?";
 				ps = conn.prepareStatement(sql);
-				ps.setString(1, name);
+				ps.setString(1, sequence);
 				ps.executeUpdate();
 
 			} catch (SQLException e) {
@@ -127,7 +127,7 @@ public class QueryClass {
 				
 				// 받은 결과값을 출력
 				while (rs.next()) {
-					arr.add(new setData(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getString(4)));
+					arr.add(new setData(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5)));
 				}
 
 			} catch (SQLException e) {
