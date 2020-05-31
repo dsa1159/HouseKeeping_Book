@@ -44,7 +44,7 @@ public class SerchDialog extends JDialog {
 		add(upCenter, "Center");
 		add(button, "South");
 		
-		setSize(500,400);
+		setSize(200,200);
 		
 		QueryClass dao = new QueryClass(DBconn.getConnection());
 		

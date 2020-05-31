@@ -1,11 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class InsertDialog extends JDialog {
+public class InsertDialog extends JDialog implements ItemListener{
 	
 	JRadioButton radio1 = new JRadioButton("수입");
 	JRadioButton radio2 = new JRadioButton("지출");
-	
+	boolean money = true;
 	
 	JPanel upNorth = new JPanel(new FlowLayout());
 		JLabel upTitle = new JLabel("가계부 내용 입력");
@@ -13,8 +13,7 @@ public class InsertDialog extends JDialog {
 	JPanel upCenter = new JPanel(new  GridLayout(0,1));
 		JPanel datePanel = new JPanel(new FlowLayout());
 			JLabel dateLabel = new JLabel("날짜     : ");
-			JTextField dateText = new JTextField(10);
-			JLabel dateEx = new JLabel("ex ) 20200520");
+			JTextField dateText = new JTextField("ex ) 20200520",10);
 		JPanel pricePanel = new JPanel(new FlowLayout());
 			JLabel priceLabel = new JLabel("금액     : ");
 			JTextField priceText = new JTextField(10);
@@ -22,7 +21,7 @@ public class InsertDialog extends JDialog {
 			JLabel nameLabel = new JLabel("이름     : ");
 			JTextField nameText = new JTextField(10);
 		JPanel notePanel = new JPanel(new FlowLayout());
-			JLabel noteLabel = new JLabel("사용처 : ");
+			JLabel noteLabel = new JLabel("비고     : ");
 			JTextField noteText = new JTextField(10);
 		JPanel button = new JPanel(new FlowLayout());
 			JButton btn1 = new JButton("등록");
@@ -43,7 +42,6 @@ public class InsertDialog extends JDialog {
 		upNorth.add(upTitle);
 		datePanel.add(dateLabel);
 		datePanel.add(dateText);
-		datePanel.add(dateEx);
 		pricePanel.add(priceLabel);
 		pricePanel.add(priceText);
 		namePanel.add(nameLabel);
@@ -55,17 +53,21 @@ public class InsertDialog extends JDialog {
 		check.add(radio1);
 		check.add(radio2);
 		
+		upCenter.add(check);
 		upCenter.add(datePanel);
 		upCenter.add(pricePanel);
 		upCenter.add(namePanel);
 		upCenter.add(notePanel);
 		upCenter.add(button);
-		upCenter.add(check);
+		
 		
 		add(upNorth, "North");
 		add(upCenter, "Center");
 		
-		setSize(600,300);
+		radio1.addItemListener(this);
+		radio2.addItemListener(this);
+		
+		setSize(200,300);
 		
 		QueryClass dao = new QueryClass(DBconn.getConnection());
 		
@@ -74,12 +76,18 @@ public class InsertDialog extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				ta.setText("");
 				
+				int price = 0;
 				String name = nameText.getText();
-				int price =Integer.parseInt(priceText.getText());
+				String sequence = "user_id.NEXTVAL";
+				
 				int usedate = Integer.parseInt(dateText.getText());
 				String notes = noteText.getText();
+				if(money == true)
+					price =Integer.parseInt(priceText.getText());
+				else if(money == false)
+					price =-(Integer.parseInt(priceText.getText()));
 				
-				dao.insertData(new setData(name, price, usedate, notes));
+				dao.insertData(new setData(usedate, price, name, notes, sequence));
 				
 				ta.append("입력 완료 \n");				
 				
@@ -94,6 +102,17 @@ public class InsertDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {				
 				setVisible(false);
 			}
-		});		
+		});	
+					
+		}
+	public void itemStateChanged(ItemEvent e) {
+		if(radio1.isSelected()) {
+			money = true;
+			System.out.println("money = true");
+		}
+		else if(radio2.isSelected()) {
+			money = false;
+			System.out.println("money = false");
 	}
+}
 }

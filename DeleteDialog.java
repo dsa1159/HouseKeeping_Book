@@ -6,15 +6,12 @@ public class DeleteDialog extends JDialog {
 	
 	
 	JPanel upNorth = new JPanel(new FlowLayout());
-		JLabel upTitle = new JLabel("삭제할 이름 입력");
+		JLabel upTitle = new JLabel("삭제할 일련번호 입력");
 				
 	JPanel upCenter = new JPanel(new  GridLayout(0,1));		
-		JPanel pricePanel = new JPanel(new FlowLayout());
-			JLabel priceLabel = new JLabel("금액     : ");
-			JTextField priceText = new JTextField(10);
-		JPanel namePanel = new JPanel(new FlowLayout());
-			JLabel nameLabel = new JLabel("이름     : ");
-			JTextField nameText = new JTextField(10);
+		JPanel sequencePanel = new JPanel(new FlowLayout());
+			JLabel sequenceLabel = new JLabel("일련번호     : ");
+			JTextField sequenceText = new JTextField(10);
 	
 		JPanel button = new JPanel(new FlowLayout());
 			JButton btn1 = new JButton("삭제");
@@ -28,22 +25,21 @@ public class DeleteDialog extends JDialog {
 		
 		upNorth.add(upTitle);
 		
-		pricePanel.add(priceLabel);
-		pricePanel.add(priceText);
-		namePanel.add(nameLabel);
-		namePanel.add(nameText);
+		
+		sequencePanel.add(sequenceLabel);
+		sequencePanel.add(sequenceText);
 		
 		button.add(btn1);
 		button.add(btn2);		
 		
-		upCenter.add(namePanel);
-		//upCenter.add(pricePanel);			
+		upCenter.add(sequencePanel);
+				
 		
 		add(upNorth, "North");
 		add(upCenter, "Center");
 		add(button, "South");
 		
-		setSize(200,300);
+		setSize(200,150);
 		
 		QueryClass dao = new QueryClass(DBconn.getConnection());
 		
@@ -51,8 +47,8 @@ public class DeleteDialog extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				ta.setText("");
-				String name = nameText.getText();
-				dao.deleteData(name);
+				String sequence = sequenceText.getText();
+				dao.deleteData(sequence);
 				
 				ta.append("삭제 완료 \n");
 				setVisible(false);
