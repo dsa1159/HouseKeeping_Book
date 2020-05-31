@@ -298,12 +298,12 @@ public class SwingCalendar extends JFrame implements ActionListener{
 				ArrayList<setData> arr = new ArrayList<setData>();
 				arr = dao.readData();
 				
-				ta.append("|  name"+"\t"+"|  price"+"\t"+"|  usedate"+"\t"+"|  notes \t|"+"\n");
-				ta.append("------------------------------------------------------------------------\n");
+				ta.append("|  날짜"+"\t"+"|  금액"+"\t"+"|  이름"+"\t"+"|  비고 \t"+"| 일련번호\t\n");
+				ta.append("------------------------------------------------------------------------------------------------\n");
 				
 				// 전체 출력
 				for (int i = 0; i < arr.size(); i++) {
-					ta.append(arr.get(i).getname() +" \t "+ arr.get(i).getPrice() + "\t" +arr.get(i).getUsedate() + "\t"+arr.get(i).getNotes() + "\n");
+					ta.append(arr.get(i).getUsedate() +" \t "+ arr.get(i).getPrice() + "\t" +arr.get(i).getname() + "\t"+arr.get(i).getNotes() + "\t"+arr.get(i).getSequence()+"\n");
 				}
 			}
 		});
@@ -406,7 +406,7 @@ public class SwingCalendar extends JFrame implements ActionListener{
 		
 		int today = cal.get(Calendar.DATE);
 		
-		cal.set(y, m-1, today);	//출력할 첫날의 객체 만든다.\
+		cal.set(y, m-1, 1);	//출력할 첫날의 객체 만든다.\
 
 		int week = cal.get(Calendar.DAY_OF_WEEK);	//1일에 대한 요일	일요일 : 0
 
@@ -436,9 +436,12 @@ public class SwingCalendar extends JFrame implements ActionListener{
 
 				lbl.setForeground(Color.BLUE);
 
-			}else if(i == today) {
+			}
+			
+			if(i == today) {
 				lbl.setForeground(Color.yellow);
 			}
+
 
 			datePane.add(lbl);
 
